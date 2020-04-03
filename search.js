@@ -127,5 +127,28 @@ var mergeTwoLists = function(l1, l2) {
     }
     return current.next
 };
+
+var removeNthFromEnd = function(head, n) {
+    let current = head;
+    
+    let runner = head;
+    for(let i = 0; i < n; i++) {
+        runner = runner.next;
+    }
+        
+    if(runner == null) {
+        return current.next;
+    }
+    
+    
+    while(runner.next != null) {
+        current = current.next;
+        runner = runner.next;
+    }
+    
+    current.next = current.next.next;
+    
+    return head;
+};
 let d = mergeTwoLists(anode, bnode)
 console.log('d:', d)
