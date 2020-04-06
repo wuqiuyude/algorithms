@@ -71,15 +71,32 @@ function shellSort(sortArray) {
 }
 
 // 快速排序, 时间复制度O(nlogn), 空间复杂O(nlogn), 不稳定
-function quickSort(sortArray) {
-  let length = sortArray.length - 1;
-  let basic = sortArray[Math.floor(length / 2)];
-
-  return sortArray;
+let count = 1
+function quickSort(sortArray, left, right) {
+  if(left >= right) return;
+  let tmp = sortArray[left];
+  let i = left
+  let j = right
+  left ++
+  while(left < right) {
+    while(sortArray[left] < tmp && left < right) {
+      left ++
+    }
+    while(sortArray[right] > tmp && left < right) {
+      right --
+    }
+    [sortArray[left], sortArray[right]] = [sortArray[right], sortArray[left]];
+    if(left < right) right --
+    if(left < right) left ++
+  }
+  sortArray[i] = sortArray[left]
+  sortArray[left] = tmp
+  quickSort(sortArray, i, left - 1)
+  quickSort(sortArray, left + 1, j)
 }
 
 module.exports = mergeSort;
 // [2, 5, 3, 1, 6, 7, 30, 0, 9, 4, 2, 6, 8,100,34,56,77,80,39]
 let a = [8, 9, 1, 7, 2, 3, 5, 4, 6, 0];
-const b = shellSort(a);
-console.log(b);
+const b = quickSort(a, 0, a.length-1)
+console.log(a);
